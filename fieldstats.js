@@ -153,8 +153,8 @@ request({
 							console.log("field node:\t\t"+fieldIni.field.name + " (id: " + nodeId + ")");
 						}
 						console.log("#points:\t\t" + nodePoints + "/" + sumPointsOfAllNodes + " (" + Number((nodePoints/sumPointsOfAllNodes)*100).toFixed(2) + "%)");
-						console.log("season balance:\t\t" + seasonBalance + " IOTA");
-						console.log("iotas earned:\t\t" + Number(factor*seasonBalance).toFixed(0) + " IOTA (" + Number(iotasEarnedByOwnNode * iotaPrice).toFixed(2) + "$)");
+						console.log("season balance:\t\t" + Number(seasonBalance/1000000).toFixed(2) + " MIOTA");
+						console.log("iotas earned:\t\t" + Number(Number(factor*seasonBalance).toFixed(0)/1000000).toFixed(2) + " MIOTA (" + Number(iotasEarnedByOwnNode * iotaPrice).toFixed(2) + "$)");
 						console.log("--------------------------------------------------------------------");	
 						// OUTPUT DATA						
 					}
