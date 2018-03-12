@@ -13,3 +13,14 @@ INSTALLATION:
 - enter command:
   * node fieldstats.js
 - ENJOY
+
+SETTINGS:
+
+- do NOTHING if you are using IRI playbook
+- if you are using IRI playbook
+ * DO NOTHING
+- else
+ * either
+  + set "nodeName" manually in script
+ * or
+  + change path to field.ini file in variable "fieldIni"
