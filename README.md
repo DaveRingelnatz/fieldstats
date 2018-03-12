@@ -4,9 +4,9 @@ NodeJS script for receiving important data of own node from carriotaField (IOTA 
 INSTALLATION:
 
 - login to your node
-- create folder "fieldstats"
 - enter commands:
 ```sh
+        $ mkdir fieldstats
         $ cd fieldstats
         $ npm install request
         $ npm install parse-ini
