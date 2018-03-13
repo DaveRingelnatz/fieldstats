@@ -1,0 +1,24 @@
+{
+  "name": "@lmoe/fieldstats",
+  "version": "1.0.0",
+  "description": "NodeJS script for receiving important data of own node from carriotaField (IOTA load balancer)",
+  "main": "fieldstats.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lmoe/fieldstats.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lmoe/fieldstats/issues"
+  },
+  "homepage": "https://github.com/lmoe/fieldstats#readme",
+  "dependencies": {
+    "lodash": "^4.17.5",
+    "parse-ini": "^1.0.6",
+    "request": "^2.85.0"
+  }
+}
