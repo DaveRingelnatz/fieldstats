@@ -26,7 +26,7 @@ const multiplicators = {
 // CONFIGURATION
 // only change folder, if you are NOT running IRI playbook
 const fieldIniUrl = '/etc/field/field.ini';
-const nodeName = "Lmoe is here too!";
+const nodeName = "";
 
 
 /**
