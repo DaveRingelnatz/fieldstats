@@ -9,7 +9,7 @@ INSTALLATION:
         $ mkdir fieldstats
         $ cd fieldstats
 ```
-- download the "package.json" file from this repo
+- download the "fieldstats.js" and "package.json" files from this repo
 - enter the following command to install:
 ```sh
         $ npm install
