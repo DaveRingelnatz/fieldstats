@@ -159,7 +159,7 @@ function getNodeRankArray(nodes, ownScore) {
 	// compute rank for node
 	for (i = 0; i < arrayNodeRank.length; i++) {
 		if((arrayNodeRank[i] == ownScore) && (rankNr == 0))
-			rankNr = i;
+			rankNr = i+1;
 	}
 	return rankNr;
 }
