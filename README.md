@@ -8,11 +8,13 @@ INSTALLATION:
 ```sh
         $ mkdir fieldstats
         $ cd fieldstats
-        $ npm install request
-        $ npm install parse-ini
 ```
-- download file and save it as "fieldstats.js" on node
-- enter command:
+- download the "package.json" file from this repo
+- enter the following command to install:
+```sh
+        $ npm install
+```
+- to use the script:
 ```sh
         $ node fieldstats.js
 ```
