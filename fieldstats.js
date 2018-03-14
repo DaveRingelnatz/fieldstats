@@ -4,6 +4,12 @@ const iniParser = require('parse-ini');
 const fs = require('fs');
 const _ = require('lodash');
 
+// CONFIGURATION
+/* only change folder, if you are NOT running IRI playbook 
+* or insert the name of the node manually */
+const fieldIniUrl = '/etc/field/field.ini';
+const nodeName = "";
+
 // JSON SOURCES
 const urlGraph = "http://field.carriota.com/api/v1/graph";
 const urlSeason = "http://field.carriota.com/api/v1/seasons";
@@ -22,12 +28,6 @@ const multiplicators = {
 	storeTransactions: 20,
 	wereAddressesSpentFrom: 5
 };
-
-// CONFIGURATION
-// only change folder, if you are NOT running IRI playbook
-const fieldIniUrl = '/etc/field/field.ini';
-const nodeName = "";
-
 
 /**
  * Web Requests 
@@ -136,13 +136,13 @@ function getNodePoints(node) {
 }
 
 function getAllNodePoints(nodes) {
-	let points = 0;
+	let allNodePoints = 0;
 	
 	nodes.forEach((node) => {
-		points += getNodePoints(node);
+		allNodePoints += getNodePoints(node);
 	});
 
-	return points;
+	return allNodePoints;
 }
 
 function findOwnNode(body) {
@@ -182,8 +182,6 @@ function printResult(dataResult) {
 	const iotasEarned = ((dataResult.factor*seasonBalance).toFixed(0) / IOTA_DEC).toFixed(2);
 	const moneyEarned = (iotasEarnedByOwnNode * dataResult.iotaPrice).toFixed(2);
 
-	console.log(dataResult.iotaPrice);
-
 	console.log(`--------------------------------------------------------------------`);
 	console.log(`#online field nodes:\t${dataResult.nodes.length}`);
 	
@@ -210,8 +208,8 @@ return requestGraph()
 		dataResult.ownNodePoints = points;
 		return getAllNodePoints(dataResult.nodes);
 	})
-	.then((points) => {
-		dataResult.allNodePoints = points;
+	.then((allNodePoints) => {
+		dataResult.allNodePoints = allNodePoints;
 		dataResult.factor = dataResult.ownNodePoints / dataResult.allNodePoints;
 		return requestIotaPrice();
 	})
