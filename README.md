@@ -1,7 +1,7 @@
 # fieldstats
 NodeJS script for receiving important data of own node from carriotaField (IOTA load balancer)
 
-INSTALLATION:
+**INSTALLATION**
 
 - login to your node
 - enter commands:
@@ -9,7 +9,7 @@ INSTALLATION:
         $ mkdir fieldstats
         $ cd fieldstats
 ```
-- download the "fieldstats.js" and "package.json" files from this repo
+- download the "fieldstats.js" and "package.json" files from this repo (do NOT rightclick "save as")
 - enter the following command to install:
 ```sh
         $ npm install
@@ -20,7 +20,7 @@ INSTALLATION:
 ```
 - ENJOY
 
-SETTINGS:
+**SETTINGS**
 
 - if you are using IRI playbook
     - DO NOTHING
@@ -28,3 +28,11 @@ SETTINGS:
     - set "nodeName" manually in script
         or
     - change path to field.ini file in variable "fieldIni"
+
+**IOTA DONATIONS**
+
+are always welcome :)
+
+```
+NJUNMJXQABDCRENNSJAU99CWHTFXHSRRRWVLASRSFUCSXEGREDPWMISWJKDFTOXQWIXLJOJBVBSNIQXFCLKUXBTSVD
+```
