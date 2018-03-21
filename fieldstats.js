@@ -9,6 +9,11 @@ const _ = require('lodash');
 * or insert the name of the node manually */
 const fieldIniUrl = '/etc/field/field.ini';
 const nodeName = "";
+/* leave nodePublicIds empty if you only have 1 node
+* fill in the form:
+* const nodePublicIds = ["foo", "fighters"];
+* if you have multiple nodes and want to sum up points and iota sponsored */
+const nodePublicIds = [];
 
 // JSON SOURCES
 const urlGraph = "http://field.carriota.com/api/v1/graph";
@@ -144,7 +149,7 @@ function getallNodesScore(nodes) {
 	return allNodesScore;
 }
 
-function getNodeRankArray(nodes, ownScore) {
+function getNodeRank(nodes, ownScore) {
 	let arrayNodeRank = [];
 	let rankNr = 0;
 	
@@ -162,6 +167,21 @@ function getNodeRankArray(nodes, ownScore) {
 			rankNr = i+1;
 	}
 	return rankNr;
+}
+
+function getOwnNodesScoreSum(nodes, ownNodesPublicIds) {
+	let arrayNodeRank = [];
+	let scoreSum = 0;
+	
+	// compute the sum of the scores for all own node
+	nodes.forEach((node) => {
+		ownNodesPublicIds.forEach((ownNode) => {
+			if(node.field.publicId == ownNode) {
+				scoreSum += getNodeScore(node);
+			}
+		});
+	});
+	return scoreSum;
 }
 
 function findOwnNode(body) {
@@ -188,25 +208,35 @@ function printResult(dataResult) {
 
 	const IOTA_SINGLE = 0.000001;
 	const IOTA_DEC = 1000000;
-
+	// ---------------------single node-------------------
 	const seasonBalance = dataResult.season[0].balance;
 	const iotasEarnedByOwnNode = (dataResult.factor * seasonBalance).toFixed(0) * IOTA_SINGLE;	
-	const fixedFactor = (dataResult.factor * 100).toFixed(2);
+	const ownNodeFactor = (dataResult.factor * 100).toFixed(2);
 	const seasonBalanceFormatted = (seasonBalance / IOTA_DEC).toFixed(2);
 	const iotasEarned = ((dataResult.factor*seasonBalance).toFixed(0) / IOTA_DEC).toFixed(2);
 	const moneyEarned = (iotasEarnedByOwnNode * dataResult.iotaPrice).toFixed(2);
+	// -------------------all own nodes-------------------
+	const ownNodesFactorSum = (dataResult.factorSum * 100).toFixed(2);
+	const iotasEarnedByOwnNodesSum = (dataResult.factorSum * seasonBalance).toFixed(0) * IOTA_SINGLE;
+	const iotasEarnedSum = ((dataResult.factorSum*seasonBalance).toFixed(0) / IOTA_DEC).toFixed(2);
+	const moneyEarnedSum = (iotasEarnedByOwnNodesSum * dataResult.iotaPrice).toFixed(2);
 	
-	console.log(`--------------------------------------------------------------------`);
+	console.log(`-------------------------single node------------------------------`);
 	console.log(`field nodes online:\t${dataResult.nodes.length}`);
 	
 	console.log(`field node:\t\t${dataResult.ownNode.field.name}`);
 	console.log(`publicId:\t\t${dataResult.ownNode.field.publicId}`);
 
-	console.log(`score:\t\t\t${dataResult.ownNodeScore}/${dataResult.allNodesScore} (${fixedFactor}%)`);
+	console.log(`score:\t\t\t${dataResult.ownNodeScore}/${dataResult.allNodesScore} (${ownNodeFactor}%)`);
 	console.log(`rank:\t\t\t${dataResult.rankNr}`);
 	console.log(`season balance:\t\t${seasonBalanceFormatted} MIOTA`);
 	console.log(`iotas sponsored:\t${iotasEarned} MIOTA (${moneyEarned}$)`);
-	console.log(`--------------------------------------------------------------------`);	
+	if(nodePublicIds.length > 0) {
+		console.log(`-------------------------all nodes--------------------------------`);	
+		console.log(`score:\t\t\t${dataResult.scoreSum}/${dataResult.allNodesScore} (${ownNodesFactorSum}%)`);
+		console.log(`iotas sponsored:\t${iotasEarnedSum} MIOTA (${moneyEarnedSum}$)`);
+	}
+	console.log(`------------------------------------------------------------------`);
 }
 
 const dataResult = {};
@@ -222,7 +252,7 @@ return requestGraph()
 	})
 	.then(Score => {
 		dataResult.ownNodeScore = Score;
-		return getNodeRankArray(dataResult.nodes, dataResult.ownNodeScore);
+		return getNodeRank(dataResult.nodes, dataResult.ownNodeScore);
 	})
 	.then(rankNr => {
 		dataResult.rankNr = rankNr;
@@ -235,6 +265,11 @@ return requestGraph()
 	})
 	.then((iotaPrice) => {
 		dataResult.iotaPrice = iotaPrice;
+		return getOwnNodesScoreSum(dataResult.nodes, nodePublicIds);
+	})
+	.then((scoreSum) => {
+		dataResult.scoreSum = scoreSum;
+		dataResult.factorSum = dataResult.scoreSum / dataResult.allNodesScore;
 		return requestCarriotaSeason();
 	})
 	.then((season) => {
