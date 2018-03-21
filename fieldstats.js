@@ -175,11 +175,11 @@ function getOwnNodesScoreSum(nodes, ownNodesPublicIds) {
 	
 	// compute the sum of the scores for all own node
 	nodes.forEach((node) => {
-		for (i = 0; i < ownNodesPublicIds.length; i++) {
-			if(node.field.publicId == ownNodesPublicIds[i]) {
+		ownNodesPublicIds.forEach((ownNode) => {
+			if(node.field.publicId == ownNode) {
 				scoreSum += getNodeScore(node);
 			}
-		}
+		});
 	});
 	return scoreSum;
 }
