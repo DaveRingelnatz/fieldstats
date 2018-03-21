@@ -25,18 +25,20 @@ NodeJS script for receiving important data of own node from carriotaField (IOTA 
 **SETTINGS**
 
 SINGLE NODE
+
 - if you are using IRI playbook
     - DO NOTHING
 - else
     - set "nodeName" manually in script
         or
     - change path to field.ini file in variable "fieldIni"
+    
 MULTIPLE NODES
-- if you have multiple nodes configure the array "nodePublicIds" in the following way
+
+- if you have multiple nodes configure the array "nodePublicIds" in the following way (you will get the sum over all your nodes at the end of the script)
 ```
 const nodePublicIds = ["foo", "fighters"];
 ```    
-- you will get the sum over all your nodes at the end of the script
 
 **IOTA DONATIONS**
 
