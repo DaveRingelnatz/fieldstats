@@ -173,10 +173,9 @@ function getOwnNodesScoreSum(nodes, ownNodesPublicIds) {
 	let arrayNodeRank = [];
 	let scoreSum = 0;
 	
-	// compute the score for each node
+	// compute the sum of the scores for all own node
 	nodes.forEach((node) => {
 		for (i = 0; i < ownNodesPublicIds.length; i++) {
-			//console.log("publicID: "+ownNodesPublicIds[i]);
 			if(node.field.publicId == ownNodesPublicIds[i]) {
 				scoreSum += getNodeScore(node);
 			}
@@ -209,14 +208,14 @@ function printResult(dataResult) {
 
 	const IOTA_SINGLE = 0.000001;
 	const IOTA_DEC = 1000000;
-
+	// ---------------------single node-------------------
 	const seasonBalance = dataResult.season[0].balance;
 	const iotasEarnedByOwnNode = (dataResult.factor * seasonBalance).toFixed(0) * IOTA_SINGLE;	
 	const ownNodeFactor = (dataResult.factor * 100).toFixed(2);
 	const seasonBalanceFormatted = (seasonBalance / IOTA_DEC).toFixed(2);
 	const iotasEarned = ((dataResult.factor*seasonBalance).toFixed(0) / IOTA_DEC).toFixed(2);
 	const moneyEarned = (iotasEarnedByOwnNode * dataResult.iotaPrice).toFixed(2);
-	// ---------------------
+	// -------------------all own nodes-------------------
 	const ownNodesFactorSum = (dataResult.factorSum * 100).toFixed(2);
 	const iotasEarnedByOwnNodesSum = (dataResult.factorSum * seasonBalance).toFixed(0) * IOTA_SINGLE;
 	const iotasEarnedSum = ((dataResult.factorSum*seasonBalance).toFixed(0) / IOTA_DEC).toFixed(2);
