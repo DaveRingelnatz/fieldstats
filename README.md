@@ -3,22 +3,24 @@ NodeJS script for receiving important data of own node from carriotaField (IOTA 
 
 **INSTALLATION**
 
-- login to your node
-- enter commands:
+- login to your node's console/bash
+- copy and paste the following line to your console
 ```sh
-        $ mkdir fieldstats
-        $ cd fieldstats
+        $ cd && mkdir fieldstats && git clone https://github.com/DaveRingelnatz/fieldstats.git && cd fieldstats && npm install
 ```
-- download the "fieldstats.js" and "package.json" files from this repo (do NOT rightclick "save as")
-- enter the following command to install:
-```sh
-        $ npm install
-```
+- this will go to your homedir, create the folder "fieldstats" and installs everything there
 - to use the script:
 ```sh
         $ node fieldstats.js
 ```
 - ENJOY
+
+**UPDATE**
+
+- remove complete installation directory and do a fresh install
+```sh
+        $ cd && rm -r fieldstats && mkdir fieldstats && git clone https://github.com/DaveRingelnatz/fieldstats.git && cd fieldstats && npm install
+```
 
 **SETTINGS**
 
